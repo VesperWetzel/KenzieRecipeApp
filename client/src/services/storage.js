@@ -1,20 +1,21 @@
 class Storage {
-    searchResultsKey = "search-results"
+  searchResultsKey = "search-results";
 
-    getSearchResults() {
-       return this.get(this.searchResultsKey)   
-    } 
+  getSearchResults() {
+    return this.get(this.searchResultsKey);
+  }
 
-    setSearchResults(value) {
-        this.set(this.searchResultsKey, value)
-    }
+  setSearchResults(value) {
+    this.set(this.searchResultsKey, value);
+  }
 
+  get(key) {
+    return JSON.parse(sessionStorage.getItem(key));
+  }
 
-    get(key) {
-        return JSON.parse(sessionStorage.getItem(key))
-    }
-
-    set(key, value) {
-        sessionStorage.setItem(key, JSON.stringify(value))
-    }
+  set(key, value) {
+    sessionStorage.setItem(key, JSON.stringify(value));
+  }
 }
+
+export default new Storage()

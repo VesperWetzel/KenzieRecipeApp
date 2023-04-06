@@ -1,15 +1,25 @@
-import { Container, Button, Form, Badge, Spinner } from "react-bootstrap";
+import {
+  Container,
+  Button,
+  Form,
+  Badge,
+  Spinner,
+  Row,
+  Col,
+} from "react-bootstrap";
 import "./LandingPage.css";
 import { useState } from "react";
 import spoonacular from "../services/spoonacular";
-
-const initialState = {
-  ingredients: [],
-};
+import recipes from "../services/recipes";
+import storage from "../services/storage";
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
-  const [ingredients, setIngredients] = useState([]);
-  const [searching, setSearching] =useState(false)
+  const navigate = useNavigate();
+  const cached = storage.getSearchResults();
+  const [ingredients, setIngredients] = useState(cached?.ingredients || []);
+  const [searching, setSearching] = useState(false);
+  const [searchedRecipes, setSearchedRecipes] = useState(cached?.recipes || []);
   function onSubmit(e) {
     e.preventDefault();
     //data is coming through as 1 string
@@ -20,39 +30,82 @@ const LandingPage = () => {
     console.log("ingredients", newIngredients);
   }
 
-  function deleteIngredient(x) { //x ix the index here as i is for ingredient
+  function deleteIngredient(x) {
+    //x ix the index here as i is for ingredient
     let splicedIngredients = [...ingredients];
     splicedIngredients.splice(x, 1);
     setIngredients(splicedIngredients);
   }
 
   async function search() {
-    setSearching(true)
-    const query = ingredients.join(",")
-    const recipes = await spoonacular.searchRecipes(query)
-    setSearching(false)
-    console.log(recipes)
+    setSearching(true);
+
+    const results = await recipes.searchRecipes(ingredients);
+    setSearchedRecipes(results);
+    setSearching(false);
+    console.log(results);
   }
 
-  function renderSpinner() {//stops spinner from spinning when not actually searching
-    if(searching === true){
-      return <Spinner className="spinner"size="sm" animation="border" variant="info" />
+  function renderSpinner() {
+    //stops spinner from spinning when not actually searching
+    if (searching === true) {
+      return (
+        <Spinner
+          className="spinner"
+          size="sm"
+          animation="border"
+          variant="info"
+        />
+      );
     }
   }
 
-  function renderSearch() {//creates search button to compare to recipe API
+  function renderSearch() {
+    //creates search button to compare to recipe API
     if (ingredients.length) {
-      return <Button className="searchButton" variant="primary" onClick={search} > 
-      {renderSpinner()}
-      Search
-      </Button>
+      return (
+        <div>
+          <Button className="searchButton" variant="primary" onClick={search}>
+            {renderSpinner()}
+            Search
+          </Button>
+          <Button className="reset" variant="primary" onClick={reset}>
+            Reset
+          </Button>
+        </div>
+      );
     }
   }
 
+  function renderRecipes() {
+    if (searchedRecipes.length) {
+      return (
+        <Container>
+          <Row xs={2} md={2} lg={4}>
+            {searchedRecipes.map((i, x) => {
+              return (
+                <Col key={i.id}>
+                  {i.title} <br />
+                  <img src={i.image} onClick={() => {
+                    displayRecipe(i.id)}}/>
+                </Col>
+              );
+            })}
+          </Row>
+        </Container>
+      );
+    }
+  }
 
+  function reset() {
+    setIngredients([])
+    setSearchedRecipes([])
+  }
 
-
-
+  function displayRecipe(id) {
+    console.log(id)
+    navigate(`recipe/${id}`);
+  }
 
   return (
     <Container>
@@ -75,6 +128,7 @@ const LandingPage = () => {
       })}
 
       {renderSearch()}
+      {renderRecipes()}
     </Container>
   );
 };

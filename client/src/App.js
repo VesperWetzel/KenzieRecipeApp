@@ -2,7 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Header } from "./components";
 import useAuth from "./hooks/useAuth";
-import { LandingPage, LoginPage, RegisterPage } from "./pages";
+import { FavoriteRecipes, LandingPage, LoginPage, RegisterPage, RecipePage  } from "./pages";
+
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -16,6 +17,8 @@ function App() {
           <Route path="" element={<LandingPage />} />
           <Route path="signin" element={<LoginPage />} />
           <Route path="signup" element={<RegisterPage />} />
+          <Route path="recipe/:id" element={<RecipePage />} />
+          <Route path="favorite" element={<FavoriteRecipes />} />
         </Routes>
       )}
     </>
