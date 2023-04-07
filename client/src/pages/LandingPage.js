@@ -12,7 +12,7 @@ import { useState } from "react";
 import spoonacular from "../services/spoonacular";
 import recipes from "../services/recipes";
 import storage from "../services/storage";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -86,8 +86,12 @@ const LandingPage = () => {
               return (
                 <Col key={i.id}>
                   {i.title} <br />
-                  <img src={i.image} onClick={() => {
-                    displayRecipe(i.id)}}/>
+                  <img
+                    src={i.image}
+                    onClick={() => {
+                      displayRecipe(i.id);
+                    }}
+                  />
                 </Col>
               );
             })}
@@ -98,20 +102,21 @@ const LandingPage = () => {
   }
 
   function reset() {
-    setIngredients([])
-    setSearchedRecipes([])
+    setIngredients([]);
+    setSearchedRecipes([]);
   }
 
   function displayRecipe(id) {
-    console.log(id)
+    console.log(id);
     navigate(`recipe/${id}`);
   }
 
   return (
-    <Container>
+    <div className="background">
+  <Container>
       <Form onSubmit={onSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Ingredients</Form.Label>
+          <Form.Label>Please Input Ingredients One At A Time</Form.Label>
           <Form.Control type="text" placeholder="What's for dinner?" />
           <Form.Text className="description">
             Enter the ingredients you'd like to cook with.
@@ -130,6 +135,7 @@ const LandingPage = () => {
       {renderSearch()}
       {renderRecipes()}
     </Container>
+</div>
   );
 };
 

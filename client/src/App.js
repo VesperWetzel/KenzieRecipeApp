@@ -6,19 +6,25 @@ import { FavoriteRecipes, LandingPage, LoginPage, RegisterPage, RecipePage  } fr
 
 
 function App() {
-  const { isAuthenticated } = useAuth();
+ const { isAuthenticated } = useAuth();
   return (
     <>
-      <Header />
+      <Header/>
       {isAuthenticated ? (
-        <Routes>{/* Routes for after logging in. */}</Routes>
+        <Routes>
+          <Route path="" element={<LandingPage />} />
+          <Route path="signin" element={<LoginPage />} />
+          <Route path="signup" element={<RegisterPage />} />
+          <Route path="recipe/:id" element={<RecipePage />} />
+          {/* <Route path="favorite" element={<FavoriteRecipes />} /> */}
+        </Routes>
       ) : (
         <Routes>
           <Route path="" element={<LandingPage />} />
           <Route path="signin" element={<LoginPage />} />
           <Route path="signup" element={<RegisterPage />} />
           <Route path="recipe/:id" element={<RecipePage />} />
-          <Route path="favorite" element={<FavoriteRecipes />} />
+          {/* <Route path="favorite" element={<FavoriteRecipes />} /> */}
         </Routes>
       )}
     </>
