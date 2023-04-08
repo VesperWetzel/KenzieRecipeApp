@@ -13,6 +13,7 @@ import spoonacular from "../services/spoonacular";
 import recipes from "../services/recipes";
 import storage from "../services/storage";
 import { useNavigate } from "react-router-dom";
+import "../App.css"
 
 const LandingPage = () => {
   const navigate = useNavigate();

@@ -30,6 +30,9 @@ const Header = () => {
               <Nav.Link eventKey={2} as={Link} to="/signup">
                 Create Account
               </Nav.Link>
+              <Nav.Link eventKey={3} as={Link} to="/favorite">
+                Favorites
+              </Nav.Link>
             </Nav>
           )}
         </Navbar.Collapse>

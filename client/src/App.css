@@ -37,4 +37,11 @@
     transform: rotate(360deg);
   }
 }
+html, body {
+  height: 100vh;
+  
+}
 
+ body {
+  background-color: rgb(124, 221, 124) !important;
+}

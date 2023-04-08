@@ -1,3 +1,5 @@
+import HTTP from "./HTTP";
+
 class Spoonacular {
   apiKey = "472db86acc7645a190310725bc749cae";
   rootURL = "https://api.spoonacular.com";
@@ -6,7 +8,7 @@ class Spoonacular {
       "recipes/complexSearch",
       `includeIngredients=${ingredients}`
     );
-    return await this.sendRequest(URL);
+    return await HTTP.get(URL);
   }
 
   constructURL(path, params) {
@@ -20,12 +22,9 @@ class Spoonacular {
       `recipes/${id}/information`,
       "includenutrition=false"
     );
-    return await this.sendRequest(URL)
+    return await HTTP.get(URL)
   }
-  async sendRequest(URL) {
-    const response = await fetch(URL);
-    return await response.json();
-  }
+  
 }
 
 export default new Spoonacular();

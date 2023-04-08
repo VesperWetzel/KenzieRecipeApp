@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import spoonacular from "../services/spoonacular";
+import "../App.css";
+import api from "../services/api";
+
 //import { useNavigate } from 'react-router-dom';
 
 const RecipePage = () => {
@@ -16,6 +19,10 @@ const RecipePage = () => {
 
   console.log(recipe);
 
+  async function toggleFavorite() {
+    await api.favorite(recipe.id.toString())
+  }
+
   return (
     <div>
       {recipe ? (
@@ -23,10 +30,11 @@ const RecipePage = () => {
           <h1>{recipe.title}</h1>
           <img src={recipe.image} />
           <div>Servings: {recipe.servings}</div>
+          <button onClick={toggleFavorite}>Favorite</button>
           <div>
             <ul>
-              {recipe.extendedIngredients.map((i) => {
-                return <li>{i.name}</li>;
+              {recipe.extendedIngredients.map((i, x) => {
+                return <li key={x}>{i.name}</li>;
               })}
             </ul>
           </div>
