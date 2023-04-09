@@ -1,0 +1,11 @@
+html, div {
+    text-align: center;
+}
+
+.recipediv {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+
+}

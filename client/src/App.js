@@ -14,7 +14,7 @@ function App() {
   const { isAuthenticated } = useAuth();
   return (
     <>
-      <Header />
+      <Header className="header"/>
 
       {isAuthenticated ? (
         <Routes >

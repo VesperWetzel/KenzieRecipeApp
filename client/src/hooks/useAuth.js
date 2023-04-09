@@ -70,6 +70,8 @@ const useAuth = () => {
     console.log(response);
 
     sessionStorage.setItem(session_name, JSON.stringify(response));
+    const favoritesResponse = await api.post("/favorites/getfavorites", {userId: response.user.uid})
+    sessionStorage.setItem("favorites", JSON.stringify(favoritesResponse))
   };
 
   const signOut = () => {

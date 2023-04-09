@@ -18,6 +18,14 @@ class Api {
       return await HTTP.post(URL, body)
     }
     
+    async unfavorite(id) {
+      const URL = this.constructURL("favorites/unfavorite")
+      const body = {
+        userId: UserService.getID(),
+        recipeId: id
+      }
+      return await HTTP.post(URL, body)
+    }
   }
   
   export default new Api();

@@ -5,12 +5,12 @@ const FavoriteSchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
       required: [true, "UserId is required."],
-      unique: true,
+      unique: false,
     },
     recipeId: {
         type: Schema.Types.String,
         required: [true, "RecipeId is required."],
-        unique: true,
+        unique: false,
       },  
   },
   { timestamps: true }

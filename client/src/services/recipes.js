@@ -1,5 +1,6 @@
 import storage from "./storage";
 import spoonacular from "./spoonacular";
+import api from "./api";
 
 class Recipes {
   /*1. Check if the search results are already in storage 
@@ -16,6 +17,21 @@ class Recipes {
     });
 
     return fetchSearchResults.results;
+  }
+  checkFavorite(recipeId) {
+    const favorites = JSON.parse(sessionStorage.getItem("favorites"));
+    return favorites.includes(recipeId)
+  }
+  async updatedFavorited(recipeId, shouldFavorite) {
+    const method = shouldFavorite ? "favorite" : "unfavorite";
+    await api[method](recipeId)
+    const favorites = JSON.parse(sessionStorage.getItem("favorites"));
+    if(shouldFavorite){
+      favorites.push(recipeId)
+    }else {
+      const index = favorites.indexOf(recipeId)
+      favorites.splice(index, 1)
+    }
   }
 }
 

@@ -13,7 +13,7 @@ import spoonacular from "../services/spoonacular";
 import recipes from "../services/recipes";
 import storage from "../services/storage";
 import { useNavigate } from "react-router-dom";
-import "../App.css"
+import "../App.css";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -65,12 +65,32 @@ const LandingPage = () => {
     //creates search button to compare to recipe API
     if (ingredients.length) {
       return (
-        <div>
-          <Button className="searchButton" variant="primary" onClick={search}>
+        <div className="searchresetbutton">
+          <Button
+            className="searchButton"
+            variant="primary"
+            onClick={search}
+            style={{
+              color: "black",
+              background: "white",
+              padding: "10px",
+              margin: "20px",
+            }}
+          >
             {renderSpinner()}
             Search
           </Button>
-          <Button className="reset" variant="primary" onClick={reset}>
+          <Button
+            className="reset"
+            variant="primary"
+            onClick={reset}
+            style={{
+              color: "black",
+              background: "white",
+              padding: "10px",
+              margin: "20px",
+            }}
+          >
             Reset
           </Button>
         </div>
@@ -114,29 +134,39 @@ const LandingPage = () => {
 
   return (
     <div className="background">
-  <Container>
-      <Form onSubmit={onSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Please Input Ingredients One At A Time</Form.Label>
-          <Form.Control type="text" placeholder="What's for dinner?" />
-          <Form.Text className="description">
-            Enter the ingredients you'd like to cook with.
-          </Form.Text>
-        </Form.Group>
-      </Form>
+      <Container>
+        <Form onSubmit={onSubmit}>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Please Input Ingredients One At A Time</Form.Label>
+            <Form.Control type="text" placeholder="What's for dinner?" />
+            <Form.Text className="description">
+              Enter the ingredients you'd like to cook with.
+            </Form.Text>
+          </Form.Group>
+        </Form>
 
-      {ingredients.map((i, x) => {
-        return (
-          <Button key={x} variant="primary" onClick={() => deleteIngredient(x)}>
-            {i} <Badge bg="secondary">x</Badge>
-          </Button>
-        );
-      })}
+        {ingredients.map((i, x) => {
+          return (
+            <Button
+              key={x}
+              variant="primary"
+              onClick={() => deleteIngredient(x)}
+              style={{
+              color: "black",
+              background: "white",
+              padding: "10px",
+              margin: "20px",
+            }}
+            >
+              {i} <Badge bg="secondary">x</Badge>
+            </Button>
+          );
+        })}
 
-      {renderSearch()}
-      {renderRecipes()}
-    </Container>
-</div>
+        {renderSearch()}
+        {renderRecipes()}
+      </Container>
+    </div>
   );
 };
 

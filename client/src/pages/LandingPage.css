@@ -6,3 +6,18 @@
     background-color: rgb(124, 221, 124);
 
 }
+
+div {
+    display: block
+}
+
+header {
+    padding: 60px;
+    text-align: center;
+    color: white;
+    font-size: 30px;
+  }
+
+  .searchbutton {
+    color: white;
+  }
