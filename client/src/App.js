@@ -9,6 +9,7 @@ import {
   RegisterPage,
   RecipePage,
 } from "./pages";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -22,7 +23,8 @@ function App() {
           <Route path="signin" element={<LoginPage />} />
           <Route path="signup" element={<RegisterPage />} />
           <Route path="recipe/:id" element={<RecipePage />} />
-          {/* <Route path="favorite" element={<FavoriteRecipes />} /> */}
+          <Route path="favorites" element={<FavoriteRecipes />} />
+          <Route path="search" element={<SearchPage />} />
         </Routes>
       ) : (
         <Routes>
@@ -30,7 +32,7 @@ function App() {
           <Route path="signin" element={<LoginPage />} />
           <Route path="signup" element={<RegisterPage />} />
           <Route path="recipe/:id" element={<RecipePage />} />
-          {/* <Route path="favorite" element={<FavoriteRecipes />} /> */}
+          <Route path="search" element={<SearchPage />} />
         </Routes>
       )}
     </>

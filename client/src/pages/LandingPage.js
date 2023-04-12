@@ -40,7 +40,6 @@ const LandingPage = () => {
 
   async function search() {
     setSearching(true);
-
     const results = await recipes.searchRecipes(ingredients);
     setSearchedRecipes(results);
     setSearching(false);

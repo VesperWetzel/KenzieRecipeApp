@@ -20,6 +20,8 @@ const Header = () => {
               </Nav>
               <Nav className="ms-auto">
                 <Nav.Link onClick={signOut}>Sign Out</Nav.Link>
+                <Nav.Link eventKey={4} as={Link} to="/search">Search</Nav.Link>
+                <Nav.Link eventKey={3} as={Link} to="/favorites">Favorites</Nav.Link>
               </Nav>
             </>
           ) : (
@@ -29,9 +31,6 @@ const Header = () => {
               </Nav.Link>
               <Nav.Link eventKey={2} as={Link} to="/signup">
                 Create Account
-              </Nav.Link>
-              <Nav.Link eventKey={3} as={Link} to="/favorite">
-                Favorites
               </Nav.Link>
             </Nav>
           )}

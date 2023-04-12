@@ -3,11 +3,6 @@ import spoonacular from "./spoonacular";
 import api from "./api";
 
 class Recipes {
-  /*1. Check if the search results are already in storage 
-2. If it's not in storage, fetch from the API 
-3. If it wasn't in storage, store it. 
-4. Return whatever you get 
-*/
   async searchRecipes(ingredients) {
     const query = ingredients.join(",");
     let fetchSearchResults = await spoonacular.searchRecipes(query);
@@ -15,23 +10,34 @@ class Recipes {
       recipes: fetchSearchResults.results,
       ingredients,
     });
-
     return fetchSearchResults.results;
   }
+
   checkFavorite(recipeId) {
-    const favorites = JSON.parse(sessionStorage.getItem("favorites"));
-    return favorites.includes(recipeId)
+    const favorites = this.getFavorites();
+    return !!favorites.find(f => f.recipeId === recipeId);
   }
-  async updatedFavorited(recipeId, shouldFavorite) {
-    const method = shouldFavorite ? "favorite" : "unfavorite";
-    await api[method](recipeId)
-    const favorites = JSON.parse(sessionStorage.getItem("favorites"));
-    if(shouldFavorite){
-      favorites.push(recipeId)
-    }else {
-      const index = favorites.indexOf(recipeId)
-      favorites.splice(index, 1)
+
+  async toggleFavorite(recipe) {
+    const recipeId = recipe.id.toString();
+    const favorites = this.getFavorites();
+    const index = favorites.findIndex(f => f.recipeId === recipeId);
+    if (index > -1){
+      await api.unfavoriteRecipe(recipeId);
+      favorites.splice(index, 1);
+    } else {
+      const favorite = await api.favoriteRecipe(recipe);
+      favorites.push(favorite);
     }
+    sessionStorage.setItem("favorites", JSON.stringify(favorites))
+  }
+
+  getFavorites() {
+    return JSON.parse(sessionStorage.getItem('favorites'));
+  }
+
+  async query(query) {
+    return await api.queryRecipes(query);
   }
 }
 

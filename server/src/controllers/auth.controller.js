@@ -45,7 +45,7 @@ export const signInHandler = async (req, res, next) => {
         .status(422)
         .json({ errors: { email: "Invalid email/password." } });
 
-    const tokenUser = { email, uid: userInDb._id };
+    const tokenUser = { email, uid: userInDb._id, favorites: userInDb.favorites };
 
     const token = jwt.sign(tokenUser, jwt_secret);
 

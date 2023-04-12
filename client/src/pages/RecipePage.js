@@ -5,6 +5,7 @@ import "../App.css";
 import api from "../services/api";
 import "./RecipePage.css"
 import recipes from "../services/recipes";
+import user from "../services/user";
 
 
 const RecipePage = () => {
@@ -15,13 +16,19 @@ const RecipePage = () => {
     (async () => {
       const response = await spoonacular.fetchRecipe(id);
       setRecipe(response);
-      setFavorited(recipes.checkFavorite(id))
+      setFavorited(user.checkFavorite(id));
+      api.putRecipe(response);
     })();
   }, []);
 
-    async function toggleFavorite() {
-    await api.favorite(recipe.id)
-    setFavorited(!favorited)
+  async function toggleFavorite() {
+    if (favorited) {
+      await user.unfavoriteRecipe(recipe.id);
+    }
+    else {
+      await user.favoriteRecipe(recipe);
+    }
+    setFavorited(!favorited);
   }
 
   return (
@@ -41,7 +48,7 @@ const RecipePage = () => {
           </div>
           <div>
             Directions:  {recipe.instructions}
-        </div>
+          </div>
         </div>
       ) : (
         <p> No recipe found. </p>
