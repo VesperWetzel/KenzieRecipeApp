@@ -11,6 +11,7 @@ import {
 } from "./pages";
 import SearchPage from "./pages/SearchPage";
 
+
 function App() {
   const { isAuthenticated } = useAuth();
   return (
